@@ -12,10 +12,10 @@ from utils.team_utils import (
     member_has_active_team_in_mode,
     find_team_by_member_and_mode,
 )
+from commands.spr_group import spr_group
 from views import TeamConfirmView
 
-@bot.tree.command(name="createteam", description="Create a team")
-@app_commands.guilds(TEST_GUILD)
+@spr_group.command(name="createteam", description="Create a team")
 @app_commands.choices(mode=TEAM_MODE_CHOICES)
 async def createteam(
     interaction: discord.Interaction,
@@ -136,8 +136,7 @@ async def createteam(
 # -----------------------
 
 
-@bot.tree.command(name="teaminfo", description="View your premade team")
-@app_commands.guilds(TEST_GUILD)
+@spr_group.command(name="teaminfo", description="View your premade team")
 @app_commands.choices(mode=TEAM_MODE_CHOICES)
 async def teaminfo(
     interaction: discord.Interaction,
@@ -197,8 +196,7 @@ async def teaminfo(
 # -----------------------
 
 
-@bot.tree.command(name="disbandteam", description="Disband your premade team")
-@app_commands.guilds(TEST_GUILD)
+@spr_group.command(name="disbandteam", description="Disband your premade team")
 @app_commands.choices(mode=TEAM_MODE_CHOICES)
 async def disbandteam(
     interaction: discord.Interaction,

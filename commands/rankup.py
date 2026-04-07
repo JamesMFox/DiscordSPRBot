@@ -10,10 +10,10 @@ from utils.rankup_utils import (
     get_rankup_target_class,
     start_rankup_for_mode,
 )
+from commands.spr_group import spr_group
 
 
-@bot.tree.command(name="rankup", description="Start a rank-up attempt for 1v1, 2v2, or 3v3")
-@app_commands.guilds(TEST_GUILD)
+@spr_group.command(name="rankup", description="Start a rank-up attempt for 1v1, 2v2, or 3v3")
 @app_commands.choices(mode=RANKUP_MODE_CHOICES)
 async def rankup(
     interaction: discord.Interaction,
@@ -107,8 +107,7 @@ async def rankup(
     )
 
 
-@bot.tree.command(name="rankupstatus", description="Check your active rank-up for 1v1, 2v2, or 3v3")
-@app_commands.guilds(TEST_GUILD)
+@spr_group.command(name="rankupstatus", description="Check your active rank-up for 1v1, 2v2, or 3v3")
 @app_commands.choices(mode=RANKUP_MODE_CHOICES)
 async def rankupstatus(
     interaction: discord.Interaction,

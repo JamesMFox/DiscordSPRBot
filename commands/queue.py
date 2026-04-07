@@ -35,10 +35,10 @@ from services.matchmaking_service import (
     run_3v3_matchmaking_pass,
     run_rankup_1v1_matchmaking_pass,
 )
+from commands.spr_group import spr_group
 
 
-@bot.tree.command(name="queuesolo", description="Join queue for solo matchmaking")
-@app_commands.guilds(TEST_GUILD)
+@spr_group.command(name="queuesolo", description="Join queue for solo matchmaking")
 @app_commands.choices(mode=QUEUE_MODE_CHOICES)
 async def queuesolo(
     interaction: discord.Interaction,
@@ -140,8 +140,7 @@ async def queuesolo(
     )
 
 
-@bot.tree.command(name="queueteam", description="Join queue with your premade team")
-@app_commands.guilds(TEST_GUILD)
+@spr_group.command(name="queueteam", description="Join queue with your premade team")
 @app_commands.choices(mode=TEAM_MODE_CHOICES)
 async def queueteam(
     interaction: discord.Interaction,
@@ -275,8 +274,7 @@ async def queueteam(
     )
 
 
-@bot.tree.command(name="queuerankup", description="Queue for a 1v1 rank-up series")
-@app_commands.guilds(TEST_GUILD)
+@spr_group.command(name="queuerankup", description="Queue for a 1v1 rank-up series")
 @app_commands.choices(mode=[
     app_commands.Choice(name="1v1", value="1v1"),
     app_commands.Choice(name="2v2", value="2v2"),
@@ -427,8 +425,7 @@ async def queuerankup(
     )
 
 
-@bot.tree.command(name="leavequeue", description="Leave your current queue")
-@app_commands.guilds(TEST_GUILD)
+@spr_group.command(name="leavequeue", description="Leave your current queue")
 async def leavequeue(interaction: discord.Interaction):
     players = load_json(PLAYERS_FILE, DEFAULT_PLAYERS)
     queue_data = load_json(QUEUE_FILE, DEFAULT_QUEUE)

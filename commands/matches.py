@@ -31,14 +31,14 @@ from utils.matchmaking_utils import (
     find_best_2v2_match_for_class,
     find_best_3v3_match_for_class,
 )
+from commands.spr_group import spr_group, mod_group, admin_group
 
 
 # -----------------------
 # FIND MY MATCH COMMAND
 # -----------------------
 
-@bot.tree.command(name="mymatch", description="View your current active match")
-@app_commands.guilds(TEST_GUILD)
+@spr_group.command(name="mymatch", description="View your current active match")
 async def mymatch(interaction: discord.Interaction):
     players = load_json(PLAYERS_FILE, DEFAULT_PLAYERS)
     active_matches = load_json(ACTIVE_MATCHES_FILE, DEFAULT_ACTIVE_MATCHES)
@@ -93,8 +93,7 @@ async def mymatch(interaction: discord.Interaction):
         ephemeral=True
     )
 
-@bot.tree.command(name="finalize1v1", description="Finalize an agreed 1v1 match")
-@app_commands.guilds(TEST_GUILD)
+@admin_group.command(name="finalize1v1", description="Finalize an agreed 1v1 match")
 async def finalize1v1(
     interaction: discord.Interaction,
     match_id: str,
@@ -204,8 +203,7 @@ async def finalize1v1(
 # DEBUGGING COMMANDS
 # -----------------------
 
-@bot.tree.command(name="runmatchmaking1v1", description="Run 1v1 matchmaking")
-@app_commands.guilds(TEST_GUILD)
+@mod_group.command(name="runmatchmaking1v1", description="Run 1v1 matchmaking")
 async def runmatchmaking1v1(interaction: discord.Interaction):
 
     if not is_mod_or_admin(interaction.user):
@@ -228,8 +226,7 @@ async def runmatchmaking1v1(interaction: discord.Interaction):
         "Matches created:\n" + "\n".join(result["created_summaries"])
     )
 
-@bot.tree.command(name="matchtest2v2", description="Test finding the best 2v2 queue match")
-@app_commands.guilds(TEST_GUILD)
+@admin_group.command(name="matchtest2v2", description="Test finding the best 2v2 queue match")
 async def matchtest2v2(interaction: discord.Interaction):
     
     if not is_mod_or_admin(interaction.user):
@@ -268,8 +265,7 @@ async def matchtest2v2(interaction: discord.Interaction):
         ephemeral=True
     )
 
-@bot.tree.command(name="runmatchmaking2v2", description="Run 2v2 matchmaking")
-@app_commands.guilds(TEST_GUILD)
+@mod_group.command(name="runmatchmaking2v2", description="Run 2v2 matchmaking")
 async def runmatchmaking2v2(interaction: discord.Interaction):
     
     if not is_mod_or_admin(interaction.user):
@@ -293,8 +289,7 @@ async def runmatchmaking2v2(interaction: discord.Interaction):
         ephemeral=True
     )
 
-@bot.tree.command(name="matchtest3v3", description="Test finding the best 3v3 queue match")
-@app_commands.guilds(TEST_GUILD)
+@admin_group.command(name="matchtest3v3", description="Test finding the best 3v3 queue match")
 async def matchtest3v3(interaction: discord.Interaction):
     
     if not is_mod_or_admin(interaction.user):
@@ -333,8 +328,7 @@ async def matchtest3v3(interaction: discord.Interaction):
         ephemeral=True
     )
 
-@bot.tree.command(name="runmatchmaking3v3", description="Run 3v3 matchmaking")
-@app_commands.guilds(TEST_GUILD)
+@mod_group.command(name="runmatchmaking3v3", description="Run 3v3 matchmaking")
 async def runmatchmaking3v3(interaction: discord.Interaction):
     
     if not is_mod_or_admin(interaction.user):

@@ -16,9 +16,9 @@ from utils.rank_utils import get_rank_data_from_discord_roles, get_class_from_sp
 from views import SignupConfirmView
 from utils.player_utils import player_is_in_match_record, get_match_participant_ids
 from utils.time_utils import utc_now_iso
+from commands.spr_group import spr_group
 
-@bot.tree.command(name="signup", description="Sign up to participate in the competitive ladder")
-@app_commands.guilds(TEST_GUILD)
+@spr_group.command(name="signup", description="Sign up to participate in the competitive ladder")
 async def signup(interaction: discord.Interaction):
     players = load_json(PLAYERS_FILE, DEFAULT_PLAYERS)
     user_id = str(interaction.user.id)
@@ -66,8 +66,7 @@ async def signup(interaction: discord.Interaction):
 # profile Command
 # -----------------------
 
-@bot.tree.command(name="profile", description="View your player profile")
-@app_commands.guilds(TEST_GUILD)
+@spr_group.command(name="profile", description="View your player profile")
 async def profile(interaction: discord.Interaction):
     players = load_json(PLAYERS_FILE, DEFAULT_PLAYERS)
 
@@ -128,8 +127,7 @@ async def profile(interaction: discord.Interaction):
 
 
 
-@bot.tree.command(name="reportsmurf", description="Report a player for suspected smurfing")
-@app_commands.guilds(TEST_GUILD)
+@spr_group.command(name="reportsmurf", description="Report a player for suspected smurfing")
 @app_commands.describe(member="The player you want to report")
 async def reportsmurf(interaction: discord.Interaction, member: discord.Member):
     players = load_json(PLAYERS_FILE, DEFAULT_PLAYERS)

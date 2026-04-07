@@ -24,12 +24,12 @@ from utils.rank_utils import get_class_from_spr, get_tier_from_spr
 from utils.permissions_utils import is_mod_or_admin
 from utils.mod_utils import build_modhelp_embed, remove_player_from_queue_data
 from utils.state_utils import rebuild_player_state_from_files, rebuild_multiple_players_state, clear_player_runtime_flags
+from commands.spr_group import mod_group
 
 MODES = ["1v1", "2v2", "3v3"]
 
 
-@bot.tree.command(name="playerinfo", description="View detailed info for a player")
-@app_commands.guilds(TEST_GUILD)
+@mod_group.command(name="playerinfo", description="View detailed info for a player")
 async def playerinfo(
     interaction: discord.Interaction,
     member: discord.Member,
@@ -110,8 +110,7 @@ async def playerinfo(
         ephemeral=True
     )
 
-@bot.tree.command(name="repairplayer", description="Reset a player's queue and match state to match files. If match needs cancel use /cancelmatch")
-@app_commands.guilds(TEST_GUILD)
+@mod_group.command(name="repairplayer", description="Reset a player's queue and match state to match files. If match needs cancel use /spr cancelmatch")
 async def repairplayer(interaction: discord.Interaction, member: discord.Member):
     
 
@@ -159,8 +158,7 @@ async def repairplayer(interaction: discord.Interaction, member: discord.Member)
         ephemeral=True
     )
 
-@bot.tree.command(name="viewdisputes", description="View disputed matches")
-@app_commands.guilds(TEST_GUILD)
+@mod_group.command(name="viewdisputes", description="View disputed matches")
 async def viewdisputes(interaction: discord.Interaction):
     if not is_mod_or_admin(interaction.user):
         await interaction.response.send_message(
@@ -205,8 +203,7 @@ async def viewdisputes(interaction: discord.Interaction):
 
     
 
-@bot.tree.command(name="resolve", description="Resolve a disputed match")
-@app_commands.guilds(TEST_GUILD)
+@mod_group.command(name="resolve", description="Resolve a disputed match")
 @app_commands.choices(outcome=RESOLVE_OUTCOME_CHOICES)
 async def resolve(
     interaction: discord.Interaction,
@@ -424,8 +421,7 @@ async def resolve(
 # active matches command
 # -----------------------
 
-@bot.tree.command(name="active1v1matches", description="View active 1v1 matches")
-@app_commands.guilds(TEST_GUILD)
+@mod_group.command(name="active1v1matches", description="View active 1v1 matches")
 async def active1v1matches(interaction: discord.Interaction):
     # -----------------------
     # Permission check
@@ -468,8 +464,7 @@ async def active1v1matches(interaction: discord.Interaction):
 
     await interaction.response.send_message("\n".join(lines), ephemeral=True)
 
-@bot.tree.command(name="cancelmatch", description="Cancel an active match")
-@app_commands.guilds(TEST_GUILD)
+@mod_group.command(name="cancelmatch", description="Cancel an active match")
 async def cancelmatch(
     interaction: discord.Interaction,
     match_id: str,
@@ -536,8 +531,7 @@ async def cancelmatch(
         ephemeral=True
     )
 
-@bot.tree.command(name="repairstate", description="Repair one player's queue and match flags from queue.json and active_matches.json")
-@app_commands.guilds(TEST_GUILD)
+@mod_group.command(name="repairstate", description="Repair one player's queue and match flags from queue.json and active_matches.json")
 async def repairstate(interaction: discord.Interaction, member: discord.Member):
     if not is_mod_or_admin(interaction.user):
         await interaction.response.send_message(
@@ -626,8 +620,7 @@ async def repairstate(interaction: discord.Interaction, member: discord.Member):
     await interaction.response.send_message("\n".join(details), ephemeral=True)
 
 
-@bot.tree.command(name="modhelp", description="Show moderator commands and tools")
-@app_commands.guilds(TEST_GUILD)
+@mod_group.command(name="modhelp", description="Show moderator commands and tools")
 async def modhelp_command(interaction: discord.Interaction):
     if not is_mod_or_admin(interaction.user):
         await interaction.response.send_message(

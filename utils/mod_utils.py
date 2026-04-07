@@ -105,9 +105,9 @@ def build_modhelp_embed(user: discord.abc.User) -> discord.Embed:
     embed.add_field(
         name="👤 Player Management",
         value=(
-            "`/playerinfo @player` — View full player data (SPR, queues, matches)\n"
-            "`/repairplayer @player` — Hard reset queue/match state for a player\n"
-            "`/repairstate @player` — Fix stuck flags without wiping stats"
+            "`/spr mod playerinfo @player` — View full player data (SPR, queues, matches)\n"
+            "`/spr mod repairplayer @player` — Hard reset queue/match state for a player\n"
+            "`/spr mod repairstate @player` — Fix stuck flags without wiping stats"
         ),
         inline=False,
     )
@@ -116,9 +116,9 @@ def build_modhelp_embed(user: discord.abc.User) -> discord.Embed:
     embed.add_field(
         name="⚔️ Match Control",
         value=(
-            "`/active1v1matches` — View all active 1v1 matches\n"
-            "`/cancelmatch match_id` — Cancel a match and reset players\n"
-            "`/finalize1v1 match_id` — Force finalize a 1v1 match result"
+            "`/spr admin active1v1matches` — View all active 1v1 matches\n"
+            "`/spr mod cancelmatch match_id` — Cancel a match and reset players\n"
+            "`/spr admin finalize1v1 match_id` — Force finalize a 1v1 match result"
         ),
         inline=False,
     )
@@ -127,8 +127,8 @@ def build_modhelp_embed(user: discord.abc.User) -> discord.Embed:
     embed.add_field(
         name="🚨 Disputes",
         value=(
-            "`/viewdisputes` — View all disputed matches\n"
-            "`/resolve match_id` — Resolve a disputed match manually"
+            "`/spr mod viewdisputes` — View all disputed matches\n"
+            "`/spr mod resolve match_id` — Resolve a disputed match manually"
         ),
         inline=False,
     )
@@ -137,9 +137,9 @@ def build_modhelp_embed(user: discord.abc.User) -> discord.Embed:
     embed.add_field(
         name="🎯 Matchmaking Control",
         value=(
-            "`/runmatchmaking1v1` — Force a matchmaking pass for 1v1\n"
-            "`/runmatchmaking2v2` — Force a matchmaking pass for 2v2\n"
-            "`/runmatchmaking3v3` — Force a matchmaking pass for 3v3"
+            "`/spr mod runmatchmaking1v1` — Force a matchmaking pass for 1v1\n"
+            "`/spr mod runmatchmaking2v2` — Force a matchmaking pass for 2v2\n"
+            "`/spr mod runmatchmaking3v3` — Force a matchmaking pass for 3v3"
         ),
         inline=False,
     )
@@ -148,8 +148,8 @@ def build_modhelp_embed(user: discord.abc.User) -> discord.Embed:
     embed.add_field(
         name="🧪 Testing Tools",
         value=(
-            "`/matchtest2v2` — Create a test 2v2 match instantly\n"
-            "`/matchtest3v3` — Create a test 3v3 match instantly"
+            "`/spr admin matchtest2v2` — Create a test 2v2 match instantly\n"
+            "`/spr admin matchtest3v3` — Create a test 3v3 match instantly"
         ),
         inline=False,
     )
@@ -161,7 +161,7 @@ def build_modhelp_embed(user: discord.abc.User) -> discord.Embed:
             "• 1v1 rank-up is tracked per player\n"
             "• 2v2 / 3v3 rank-up is tracked per participant list\n"
             "• Captain owns the queue, but multiple players may progress\n"
-            "• Use `/repairplayer` if a player gets stuck mid-series"
+            "• Use `/spr mod repairplayer` if a player gets stuck mid-series"
         ),
         inline=False,
     )
@@ -170,10 +170,10 @@ def build_modhelp_embed(user: discord.abc.User) -> discord.Embed:
     embed.add_field(
         name="🛠️ Common Fixes",
         value=(
-            "• Player stuck in queue → `/repairplayer`\n"
-            "• Match not resolving → `/resolve`\n"
-            "• Match bugged → `/cancelmatch`\n"
-            "• Queue not popping → `/runmatchmakingXvX`"
+            "• Player stuck in queue → `/spr mod repairplayer`\n"
+            "• Match not resolving → `/spr mod resolve`\n"
+            "• Match bugged → `/spr mod cancelmatch`\n"
+            "• Queue not popping → `/spr mod runmatchmaking1v1` (or 2v2/3v3)"
         ),
         inline=False,
     )

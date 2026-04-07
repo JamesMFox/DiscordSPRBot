@@ -4,25 +4,26 @@ from discord import app_commands
 from bot_instance import bot
 from config import TEST_GUILD
 from utils.permissions_utils import is_mod_or_admin
+from commands.spr_group import spr_group
 
 
 HELP_PAGES = {
     "home": {
         "title": "SPR Help Center",
         "description": (
-            "Use the dropdown below to browse command categories.\n\n"
+            "Use the dropdown below to browse command categories.\n"
             "**Quick Start**\n"
-            "1. `/signup` to create your ladder profile\n"
-            "2. `/profile` to view your SPR and status\n"
-            "3. `/queuesolo` for 1v1 or `/queueteam` for 2v2/3v3\n"
-            "4. `/mymatch` to view your active match\n"
-            "5. `/report1v1`, `/report2v2`, or `/report3v3` when your set ends\n"
-            "6. `/rankup` when you reach your class elite tier and want to promote"
+            "1. `/spr signup` to create your ladder profile\n"
+            "2. `/spr profile` to view your SPR and status\n"
+            "3. `/spr queuesolo` for 1v1 or `/spr queueteam` for 2v2/3v3\n"
+            "4. `/spr mymatch` to view your active match\n"
+            "5. `/spr report1v1`, `/spr report2v2`, or `/spr report3v3` when your set ends\n"
+            "6. `/spr rankup` when you reach your class elite tier and want to promote"
         ),
         "fields": [
             (
                 "Most Used",
-                "`/signup` • `/profile` • `/queuesolo` • `/queueteam` • `/leavequeue` • `/mymatch`",
+                "`/spr signup` • `/spr profile` • `/spr queuesolo` • `/spr queueteam` • `/spr leavequeue` • `/spr mymatch`",
                 False,
             ),
             (
@@ -43,17 +44,17 @@ HELP_PAGES = {
         "description": "Commands for joining the ladder, viewing your profile, and reporting suspicious players.",
         "fields": [
             (
-                "`/signup`",
+                "`/spr signup`",
                 "Create your player profile and select your current starting rank.",
                 False,
             ),
             (
-                "`/profile`",
+                "`/spr profile`",
                 "View your SPR, class, tier, record, queue state, and match state.",
                 False,
             ),
             (
-                "`/reportsmurf @player`",
+                "`/spr reportsmurf @player`",
                 "Report a player for suspected smurfing. Any active match involving that player can be moved into dispute review.",
                 False,
             ),
@@ -64,17 +65,17 @@ HELP_PAGES = {
         "description": "Commands for joining or leaving matchmaking queues.",
         "fields": [
             (
-                "`/queuesolo`",
+                "`/spr queuesolo`",
                 "Queue yourself for **1v1 ranked matchmaking**.",
                 False,
             ),
             (
-                "`/queueteam`",
+                "`/spr queueteam`",
                 "Queue your premade team for **2v2** or **3v3 ranked matchmaking**.",
                 False,
             ),
             (
-                "`/queuerankup`",
+                "`/spr queuerankup`",
                 (
                     "Queue for an active rank-up attempt.\n"
                     "• **1v1:** queues your personal rank-up series\n"
@@ -83,7 +84,7 @@ HELP_PAGES = {
                 False,
             ),
             (
-                "`/leavequeue`",
+                "`/spr leavequeue`",
                 "Leave your current queue if you are queued and not already placed into a match.",
                 False,
             ),
@@ -94,22 +95,22 @@ HELP_PAGES = {
         "description": "Commands for viewing active matches and reporting results.",
         "fields": [
             (
-                "`/mymatch`",
+                "`/spr mymatch`",
                 "View your current active match, including teams, mode, and match ID.",
                 False,
             ),
             (
-                "`/report1v1`",
+                "`/spr report1v1`",
                 "Report the result of your active **1v1** match.",
                 False,
             ),
             (
-                "`/report2v2`",
+                "`/spr report2v2`",
                 "Report the result of your active **2v2** match.",
                 False,
             ),
             (
-                "`/report3v3`",
+                "`/spr report3v3`",
                 "Report the result of your active **3v3** match.",
                 False,
             ),
@@ -125,17 +126,17 @@ HELP_PAGES = {
         "description": "Commands for creating and managing premade teams.",
         "fields": [
             (
-                "`/createteam`",
+                "`/spr createteam`",
                 "Create a premade team for **2v2** or **3v3** play.",
                 False,
             ),
             (
-                "`/teaminfo`",
+                "`/spr teaminfo`",
                 "View your current team, captain, mode, and roster.",
                 False,
             ),
             (
-                "`/disbandteam`",
+                "`/spr disbandteam`",
                 "Disband your current premade team.",
                 False,
             ),
@@ -146,17 +147,17 @@ HELP_PAGES = {
         "description": "Commands for starting and tracking rank-up series.",
         "fields": [
             (
-                "`/rankup`",
+                "`/spr rankup`",
                 "Start a rank-up attempt for **1v1**, **2v2**, or **3v3** when eligible.",
                 False,
             ),
             (
-                "`/rankupstatus`",
+                "`/spr rankupstatus`",
                 "Check your current rank-up progress, including wins, losses, and target class.",
                 False,
             ),
             (
-                "`/queuerankup`",
+                "`/spr queuerankup`",
                 (
                     "Queue an active rank-up attempt.\n"
                     "For **2v2** and **3v3**, only the captain must have the active attempt. "
@@ -172,32 +173,32 @@ HELP_PAGES = {
         "fields": [
             (
                 "Player Tools",
-                "`/playerinfo` • `/repairplayer` • `/repairstate`",
+                "`/spr playerinfo` • `/spr repairplayer` • `/spr repairstate`",
                 False,
             ),
             (
                 "Dispute Tools",
-                "`/viewdisputes` • `/resolve`",
+                "`/spr viewdisputes` • `/spr resolve`",
                 False,
             ),
             (
                 "Match Tools",
-                "`/active1v1matches` • `/cancelmatch` • `/finalize1v1`",
+                "`/spr active1v1matches` • `/spr cancelmatch` • `/spr finalize1v1`",
                 False,
             ),
             (
                 "Matchmaking Tools",
-                "`/runmatchmaking1v1` • `/runmatchmaking2v2` • `/runmatchmaking3v3`",
+                "`/spr runmatchmaking1v1` • `/spr runmatchmaking2v2` • `/spr runmatchmaking3v3`",
                 False,
             ),
             (
                 "Testing Tools",
-                "`/matchtest2v2` • `/matchtest3v3`",
+                "`/spr matchtest2v2` • `/spr matchtest3v3`",
                 False,
             ),
             (
                 "Moderator Help",
-                "`/modhelp`",
+                "`/spr modhelp`",
                 False,
             ),
         ],
@@ -292,8 +293,7 @@ class HelpView(discord.ui.View):
         self.add_item(HelpCategorySelect(is_mod=is_mod))
 
 
-@bot.tree.command(name="help", description="Open the SPR help menu")
-@app_commands.guilds(TEST_GUILD)
+@spr_group.command(name="help", description="Open the SPR help menu")
 async def help_command(interaction: discord.Interaction):
     mod_status = is_mod_or_admin(interaction.user)
     embed = build_help_embed("home", interaction.user)

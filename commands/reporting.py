@@ -27,6 +27,7 @@ from utils.finalization_utils import (
     finalize_agreed_3v3_match,
     fail_rankup_if_needed,
 )
+from commands.spr_group import spr_group
 from utils.time_utils import utc_now_iso
 
 
@@ -46,8 +47,7 @@ def build_spr_lines(players: dict, finalized: dict) -> list[str]:
     return spr_lines
 
 
-@bot.tree.command(name="report1v1", description="Report the result of your active 1v1 match")
-@app_commands.guilds(TEST_GUILD)
+@spr_group.command(name="report1v1", description="Report the result of your active 1v1 match")
 @app_commands.choices(result=REPORT_RESULT_CHOICES)
 async def report1v1(
     interaction: discord.Interaction,
@@ -207,8 +207,7 @@ async def report1v1(
     )
 
 
-@bot.tree.command(name="report2v2", description="Report the result of your active 2v2 match")
-@app_commands.guilds(TEST_GUILD)
+@spr_group.command(name="report2v2", description="Report the result of your active 2v2 match")
 @app_commands.choices(result=REPORT_RESULT_CHOICES)
 async def report2v2(
     interaction: discord.Interaction,
@@ -342,8 +341,7 @@ async def report2v2(
     )
 
 
-@bot.tree.command(name="report3v3", description="Report the result of your active 3v3 match")
-@app_commands.guilds(TEST_GUILD)
+@spr_group.command(name="report3v3", description="Report the result of your active 3v3 match")
 @app_commands.choices(result=REPORT_RESULT_CHOICES)
 async def report3v3(
     interaction: discord.Interaction,
