@@ -68,6 +68,7 @@ class SignupConfirmView(discord.ui.View):
         profile = create_new_player_profile(
             user_id=interaction.user.id,
             username=interaction.user.name,
+            avatar_url=interaction.user.display_avatar.url,
             display_name=interaction.user.display_name,
             signup_rank_role=self.rank_role,
             starting_spr=self.starting_spr,

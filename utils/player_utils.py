@@ -4,6 +4,7 @@ from utils.time_utils import utc_now_iso
 def create_new_player_profile(
     user_id: int,
     username: str,
+    avatar_url: str,
     display_name: str,
     signup_rank_role: str,
     starting_spr: int,
@@ -12,6 +13,7 @@ def create_new_player_profile(
     return {
         "user_id": str(user_id),
         "username": username,
+        "avatar_url": avatar_url,
         "display_name": display_name,
         "signed_up": True,
         "signup_rank_role": signup_rank_role,
